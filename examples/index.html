@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <style>
+            body {
+                margin:0;
+                padding:20px 20px 0 20px;
+                background:#0F0F0F;
+                color:#F9F9F9;
+                font-family: Avenir Next, Helvetica, Arial, sans-serif;
+            }
+
+            .images {
+                text-align:center;
+            }
+
+            .images span {
+                font-size: 0.65em;
+                display:block;
+                padding:6px 8px;
+                position:absolute;
+            }
+
+            .images img {
+                display:inline-block;
+                width:calc(100vw - 40px);
+                margin-bottom:20px;
+            }
+        </style>
+    </head>
+    <body>
+        <p>The images underneath are loaded from a single binary bundle.</p>
+        <p>Each image is a PNG of 1200 x 1000 pixels of an average file size of 78kB.</p>
+        <div class="images"></div>
+
+        <script src="../implementations/bndl/build/bndl-loader.min.js"></script>
+        <script>
+            var images = document.querySelector('.images');
+
+            var loader = new BndlLoader ({
+                img: function (arrayBuffer, infos) {
+                    return window.URL.createObjectURL(
+                        new Blob([new Uint8Array(arrayBuffer, infos.start, infos.length)])
+                    );
+                }
+            });
+
+            loader.load('./assets/images.bin', function (files) {
+                for (var key in files) {
+                    var span = document.createElement('span');
+                    span.innerText = key;
+                    images.appendChild(span);
+                    var img = new Image();
+                    img.src = files[key];
+                    images.appendChild(img);
+                }
+            });
+        </script>
+    </body>
+</html>

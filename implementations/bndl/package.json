@@ -1,0 +1,24 @@
+{
+  "name": "bndl",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha test/",
+    "build-dev": "browserify ./index.js -d --s bndl > ./build/bndl.dev.js",
+    "build-min": "browserify ./index.js --s bndl | uglifyjs > ./build/bndl.min.js",
+    "build-loader-dev": "browserify ./src/loader.js -d --s BndlLoader > ./build/bndl-loader.dev.js",
+    "build-loader-min": "browserify ./src/loader.js --s BndlLoader | uglifyjs > ./build/bndl-loader.min.js"
+  },
+  "author": "Kevin Chapelier",
+  "license": "MIT",
+  "dependencies": {
+    "glob": "~7.1.2",
+    "yargs": "~10.0.3"
+  },
+  "devDependencies": {
+    "chai": "~4.1.2",
+    "mocha": "~4.0.1"
+  }
+}
