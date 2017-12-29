@@ -46,9 +46,9 @@ function encode (data) {
     uint8[4] = 0x01;
 
     // number of files
-    uint8[5] = ids.length >> 16 & 0xFF;
+    uint8[5] = ids.length & 0xFF;
     uint8[6] = ids.length >> 8 & 0xFF;
-    uint8[7] = ids.length & 0xFF;
+    uint8[7] = ids.length >> 16 & 0xFF;
 
     pos = 8;
 
@@ -75,18 +75,18 @@ function encode (data) {
         // include start pos
         start = fileStarts[i];
 
-        uint8[pos] = start >> 24 & 0xFF;
-        uint8[pos + 1] = start >> 16 & 0xFF;
-        uint8[pos + 2] = start >> 8 & 0xFF;
-        uint8[pos + 3] = start & 0xFF;
+        uint8[pos] = start & 0xFF;
+        uint8[pos + 1] = start >> 8 & 0xFF;
+        uint8[pos + 2] = start >> 16 & 0xFF;
+        uint8[pos + 3] = start >> 24 & 0xFF;
         pos += 4;
 
         fileSize = file.data.byteLength;
 
-        uint8[pos] = fileSize >> 24 & 0xFF;
-        uint8[pos + 1] = fileSize >> 16 & 0xFF;
-        uint8[pos + 2] = fileSize >> 8 & 0xFF;
-        uint8[pos + 3] = fileSize & 0xFF;
+        uint8[pos] = fileSize & 0xFF;
+        uint8[pos + 1] = fileSize >> 8 & 0xFF;
+        uint8[pos + 2] = fileSize >> 16 & 0xFF;
+        uint8[pos + 3] = fileSize >> 24 & 0xFF;
         pos += 4;
 
         uint8.set(new Uint8Array(file.data), start);

@@ -91,12 +91,12 @@
 
         bndlLoader.load( './assets/models.' + endianness + '.bndl', function ( files ) {
 
-            var mesh = new THREE.Mesh( files[ 'faceted-nefertiti.' + endianness + '.prwm' ], material );
+            var mesh = new THREE.Mesh( files[ 'models/faceted-nefertiti.' + endianness + '.prwm' ], material );
             mesh.scale.set( 45, 45, 45 );
             mesh.position.set( -60, 0, 0 );
             scene.add( mesh );
 
-            mesh = new THREE.Mesh( files[ 'smooth-suzanne.' + endianness + '.prwm' ], material );
+            mesh = new THREE.Mesh( files[ 'models/smooth-suzanne.' + endianness + '.prwm' ], material );
             mesh.scale.set( 45, 45, 45 );
             mesh.position.set( 60, 0, 0 );
             scene.add( mesh );

@@ -33,9 +33,9 @@ describe('encode()', function () {
         }));
 
         // 0x000001
-        uint8[5].should.equal(0);
+        uint8[5].should.equal(1);
         uint8[6].should.equal(0);
-        uint8[7].should.equal(1);
+        uint8[7].should.equal(0);
 
         var data = {};
 
@@ -49,9 +49,9 @@ describe('encode()', function () {
         uint8 = new Uint8Array(lib.encode(data));
 
         // 0x0001FF
-        uint8[5].should.equal(0);
+        uint8[5].should.equal(255);
         uint8[6].should.equal(1);
-        uint8[7].should.equal(255);
+        uint8[7].should.equal(0);
     });
 
     it('should throw an error if the number of files is zero', function () {
