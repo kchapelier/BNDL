@@ -26,6 +26,8 @@ describe('decode()', function () {
     it('should properly read a correctly formatted file', function () {
         var data = lib.decode(validBndl);
 
+        data.version.should.be.a('Number');
+        data.version.should.be.equal(1);
         data.arrayBuffer.should.be.an('ArrayBuffer');
         data.arrayBuffer.byteLength.should.be.equal(42);
         data.files.should.be.deep.equal({

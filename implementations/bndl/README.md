@@ -138,6 +138,7 @@ Returns a literal containing the source arrayBuffer and the list of files with t
 
 ```js
 {
+    "version": 1,
     "arrayBuffer": ArrayBuffer(312932),
     "files": {
         "images/image1.png": { "type":"img", "start":128, "length":68209 },

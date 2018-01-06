@@ -74,6 +74,7 @@ function decode (arrayBuffer) {
     }
 
     return {
+        version: version,
         arrayBuffer: arrayBuffer,
         files: files
     };

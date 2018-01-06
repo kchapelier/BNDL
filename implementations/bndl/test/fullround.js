@@ -21,6 +21,8 @@ describe('Full round (encode -> decode -> compare)', function () {
         });
 
         var decodedData = lib.decode(arrayBuffer);
+        decodedData.version.should.be.a('Number');
+        decodedData.version.should.be.equal(1);
         decodedData.arrayBuffer.should.be.an('ArrayBuffer');
         decodedData.files.should.be.an('object');
         Object.keys(decodedData.files).should.have.a.lengthOf(3);
