@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BNDL Inspector</title>
+    <script src="./../implementations/bndl/build/bndl.min.js"></script>
+    <style>
+        html {
+            height:100%;
+        }
+
+        body {
+            margin:0;
+            padding:0;
+            min-height:100%;
+            background:#F5F5F5;
+            font-family: Lucida Grande, sans-serif;
+        }
+
+        #container {
+            margin:20px auto;
+            background:black;
+            color:white;
+            width:500px;
+            box-shadow: 0px 0px 13px rgba(0,0,0,0.6);
+            font-size:13px;
+            opacity:0;
+            transition:opacity 0.2s ease-in-out;
+            border:1px solid black;
+        }
+
+        #container .field {
+            width:100%;
+            box-sizing: border-box;
+            padding:0;
+            margin:0;
+            border:1px solid rgba(0,0,0,0.5);
+        }
+
+        #container .field.indent--0 {
+            background:rgba(255,0,0, 0.5);
+        }
+
+        #container .field > span {
+            display:inline-block;
+            box-sizing: border-box;
+            padding:5px 8px;
+            width:100%;
+        }
+
+        #container .field.has-value > span {
+            width:50%;
+        }
+
+        #container .field > span.value {
+            background-color:rgba(255,255,255, 0.1);
+        }
+
+        #container hr {
+            margin:2px;
+            height:1px;
+            background:rgba(255,0,0, 0.15);
+            border:1px;
+        }
+
+        #cta {
+            display:inline-block;
+            width:600px;
+            background:rgba(0,0,0,0.1);
+            border-radius:4px;
+            line-height:50px;
+            position:absolute;
+            top:50vh;
+            left:50vw;
+            transform:translate(-300px, -30px);
+            text-align:center;
+            opacity:1;
+            transition:opacity 0.2s ease-in-out;
+        }
+
+        body.inspecting #cta {
+            opacity:0;
+        }
+
+        body.inspecting #container {
+            opacity:1;
+        }
+    </style>
+</head>
+<body>
+<div id="cta">
+    Drag and drop a BNDL file to inspect it.
+</div>
+<div id="container"></div>
+<script>
+    var body = document.body;
+    var container = document.getElementById('container');
+
+    function addHr () {
+        container.appendChild(document.createElement('hr'));
+    }
+
+    function addField (indent, name, value) {
+        var hasValue = typeof value !== 'undefined';
+        var field = document.createElement('div');
+        field.className = 'field indent--' + indent + (hasValue ? ' has-value' : '');
+
+
+        var nameElement = document.createElement('span');
+        nameElement.className = 'name';
+        nameElement.innerText = name;
+        field.appendChild(nameElement);
+
+        if (hasValue) {
+            var valueElement = document.createElement('span');
+            valueElement.className = 'value';
+            valueElement.innerText = (value === null ? 'NULL' : value);
+            field.appendChild(valueElement);
+        }
+
+        container.appendChild(field);
+    }
+
+    var inspect = function inspect (filename, arrayBuffer) {
+        container.innerHTML = '';
+        body.className = 'inspecting';
+
+        try {
+            var now = performance.now();
+            var data = bndl.decode(arrayBuffer);
+            var timeToDecode = performance.now() - now;
+        } catch (e) {
+            addField(0, 'Error: ' + e.message);
+            return;
+        }
+
+        var fileKeys = Object.keys(data.files),
+            file,
+            fileLength;
+
+        addField(0, 'File name', filename);
+        addField(0, 'File size', arrayBuffer.byteLength + ' (' + (arrayBuffer.byteLength / 1024).toFixed(2) + 'kB)');
+        addField(0, 'Decoding time', timeToDecode.toFixed(2) + 'ms');
+        addHr();
+        addField(0, 'BNDL Format Version', data.version);
+        addHr();
+        addField(0, 'Number of files', fileKeys.length);
+        addHr();
+
+        var metaBytes = arrayBuffer.byteLength;
+
+        for (var i = 0; i < fileKeys.length; i++) {
+            file = data.files[fileKeys[i]];
+
+            addField(0, 'File', fileKeys[i]);
+            addField(1, 'Type', file.type);
+            addField(1, 'Content Start', file.start);
+            addField(1, 'Content Length', file.length + ' (' + (file.length / 1024).toFixed(2) + 'kB)');
+            addHr();
+
+            metaBytes -= file.length;
+        }
+
+        addField(0, 'Bytes used on metadata', metaBytes + ' (' + (metaBytes / 1024).toFixed(2) + 'kB)');
+    };
+
+    var noop = function noop (e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+    };
+
+    var fileDrop = function fileDrop (e) {
+        e.preventDefault();
+
+        var files = e.target.files || e.dataTransfer.files;
+
+        // process the first File objects
+        if (files[0]) {
+            var reader = new FileReader();
+            reader.onload = function onload (e) {
+                inspect(files[0].name, e.target.result);
+            };
+            reader.readAsArrayBuffer(files[0]);
+        }
+    };
+
+    body.addEventListener("dragover", noop, false);
+    body.addEventListener("dragleave", noop, false);
+    body.addEventListener("drop", fileDrop, false);
+</script>
+</body>
+</html>
