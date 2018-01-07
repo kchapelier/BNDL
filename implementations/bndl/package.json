@@ -1,8 +1,7 @@
 {
   "name": "bndl",
   "version": "1.0.0",
-  "private": true,
-  "description": "",
+  "description": "BNDL (binary bundle for assets) file format encoder/decoder",
   "main": "src/index.js",
   "scripts": {
     "test": "mocha test/",
@@ -21,8 +20,23 @@
     "src/encode.js",
     "src/loader.js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kchapelier/BNDL.git"
+  },
+  "keywords": [
+    "bndl",
+    "binary",
+    "bundle",
+    "assets"
+  ],
   "author": "Kevin Chapelier",
   "license": "MIT",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/kchapelier/BNDL/issues"
+  },
+  "homepage": "https://github.com/kchapelier/BNDL",
   "dependencies": {
     "glob": "~7.1.2",
     "yargs": "~10.0.3"

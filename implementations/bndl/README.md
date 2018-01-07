@@ -151,7 +151,7 @@ Returns a literal containing the source arrayBuffer and the list of files with t
 
 ## Changelog
 
-### 1.0.0 (TBD) :
+### 1.0.0 (2018-01-07) :
 
  * First implementation, with full support for the first version of the format.
 

@@ -1,9 +1,11 @@
-# BNDL Specifications (version 1 / draft 2017-12-23)
+# BNDL Specifications (version 1 / final 2018-01-07)
 
 ## Conventions
 
- * The endianess of the BNDL header and dictionary is set to Little Endian.
- * The endianess of the content is not defined by the BNDL format.
+ * The endianness of the BNDL header and dictionary is set to Little Endian.
+ * The endianness of the content is not defined by the BNDL format.
+ * The format prioritizes fast parsing over file weight.
+ * The format is specifically designed for JavaScript and will probably prove useless for any other platforms.
 
 The general structure of the file is the following : One *header* (8 bytes) followed by a *dictionary* (varying byte count) and the *content* block (varying byte count).
 
@@ -58,4 +60,4 @@ Length of the file content.
 
 ## Content
 
-Binary data of all the contained files with the eventual padding.
+Binary data of all the contained files including the eventual padding bytes.
