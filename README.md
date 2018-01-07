@@ -1,6 +1,6 @@
 # BNDL
 
-BNDL is an experimental file format for bundling assets files (images, 3D models, ...) as binary bundle for consumption in JavaScript applications.
+BNDL is an experimental file format for bundling arbitrary files (images, 3D models, ...) as binary bundle for consumption in JavaScript applications.
 
 ## Notes
 

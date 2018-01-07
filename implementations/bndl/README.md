@@ -4,7 +4,7 @@ The reference encoding / decoding library for the BNDL file format.
 
 Also contains a CLI tool (`makebndl`) to create BNDL files from the command line, as well as an example implementation of a loader for BNDL files in the browser.
 
-BNDL is an experimental file format for bundling assets files as binary bundle for consumption in JavaScript applications. More information on this [here](https://github.com/kchapelier/BNDL).
+BNDL is an experimental file format for bundling arbitrary files as binary bundle for consumption in JavaScript applications. More information on this [here](https://github.com/kchapelier/BNDL).
 
 ## Installing
 
