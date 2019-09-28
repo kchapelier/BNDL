@@ -1,6 +1,6 @@
 {
   "name": "bndl",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "BNDL (binary bundle for arbitrary files) file format encoder/decoder",
   "main": "src/index.js",
   "scripts": {
@@ -39,10 +39,11 @@
   "homepage": "https://github.com/kchapelier/BNDL",
   "dependencies": {
     "glob": "~7.1.4",
-    "yargs": "~13.2.4"
+    "yargs": "~14.0.0"
   },
   "devDependencies": {
     "chai": "~4.2.0",
-    "mocha": "~6.1.4"
+    "mocha": "~6.2.0",
+    "browserify": "~16.5.0"
   }
 }

@@ -151,6 +151,10 @@ Returns a literal containing the source arrayBuffer and the list of files with t
 
 ## Changelog
 
+### 1.0.2 (2019-09-28) :
+
+ * Update dependencies.
+
 ### 1.0.1 (2019-07-06) :
 
  * Update dependencies.
